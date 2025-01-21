@@ -1,12 +1,13 @@
+import scanner.Scanner;
+import scanner.Token;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
-import java.util.Scanner;
-import java.util.stream.Stream;
+import java.util.List;
 
 public class Main {
     private static boolean hadError = false;
@@ -42,19 +43,10 @@ public class Main {
 
     private static void run(String source) {
         Scanner scanner = new Scanner(source);
-        Stream<String> tokens = scanner.tokens();
-        // Printing tokens for now
-        tokens.forEach(System.out::println);
-    }
+        List<Token> tokens = scanner.scanTokens();
 
-    static void error(int line, String message) {
-        report(line, "", message);
-    }
-
-    private static void report(int line, String where,
-                               String message) {
-        System.err.println(
-                "[line " + line + "] Error" + where + ": " + message);
-        hadError = true;
+        for (Token token : tokens) {
+            System.out.println(token);
+        }
     }
 }
