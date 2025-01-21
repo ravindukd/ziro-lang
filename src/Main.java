@@ -9,6 +9,8 @@ import java.util.Scanner;
 import java.util.stream.Stream;
 
 public class Main {
+    private static boolean hadError = false;
+
     public static void main(String[] args) throws IOException {
         if (args.length > 1) {
             System.out.println("Usage: ziro [script]");
@@ -41,5 +43,16 @@ public class Main {
         Stream<String> tokens = scanner.tokens();
         // Printing tokens for now
         tokens.forEach(System.out::println);
+    }
+
+    static void error(int line, String message) {
+        report(line, "", message);
+    }
+
+    private static void report(int line, String where,
+                               String message) {
+        System.err.println(
+                "[line " + line + "] Error" + where + ": " + message);
+        hadError = true;
     }
 }
